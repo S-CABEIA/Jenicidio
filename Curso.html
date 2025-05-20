@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curso - Ubuntu</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- Cabeçalho -->
+  <header class="bg-teal-700 text-white p-4 text-xl font-bold">UBUNTU</header>
+
+  <!-- Abas -->
+  <div class="flex border-b border-gray-700 bg-gray-800">
+    <button class="px-6 py-3 border-b-4 border-teal-500 text-teal-400 font-semibold">Esboço do curso</button>
+    <button class="px-6 py-3 text-gray-400 hover:text-teal-400 transition">Recursos</button>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 bg-gray-900" x-data="{
+    open: null,
+    setModulo(i) { this.open = i; $refs.info.openModulo = i }
+  }">
+
+    <!-- Lado esquerdo: módulos -->
+    <div>
+      <h2 class="text-lg font-semibold mb-4 text-teal-300">Curso de UI e UX Design (Em andamento)</h2>
+
+      <div class="space-y-4">
+        <template x-for="(modulo, i) in [
+          'Vídeo tutorial',
+          'Módulo 1: Fundamentos de UI e UX Design',
+          'Módulo 2: Psicologia do Usuário e Experiência Digital',
+          'Módulo 3: Design de Interfaces Intuitivas',
+          'Módulo 4: Prototipagem e Testes de Usabilidade',
+          'Módulo 5: Carreira em UI/UX – O que vem a seguir?',
+          'UI/UX Design: Exame Final do Curso'
+        ]" :key="i">
+          <div class="bg-gray-800 p-4 rounded shadow">
+            <button @click="setModulo(i)" class="w-full flex justify-between items-center font-medium text-white">
+              <span x-text="modulo"></span>
+              <span>&#x25BC;</span>
+            </button>
+            <div x-show="open === i" class="mt-2 text-sm text-gray-300" x-transition>
+              <template x-if="i === 0">
+                <p>Assista ao vídeo introdutório para entender como navegar pela plataforma.</p>
+              </template>
+              <template x-if="i === 1">
+                <ul class="list-disc list-inside">
+                  <li>O que é UI e UX</li>
+                  <li>Diferença entre Design de Interface e Experiência do Usuário</li>
+                  <li>Princípios básicos de usabilidade</li>
+                  <li>Exemplos de boas e más interfaces</li>
+                </ul>
+              </template>
+              <template x-if="i === 2">
+                <ul class="list-disc list-inside">
+                  <li>Comportamento do usuário na web</li>
+                  <li>Heurísticas de usabilidade (Nielsen)</li>
+                  <li>Mapas de empatia e personas</li>
+                  <li>Arquitetura da informação</li>
+                </ul>
+              </template>
+              <template x-if="i === 3">
+                <ul class="list-disc list-inside">
+                  <li>Wireframes e layout responsivo</li>
+                  <li>Design com foco no usuário</li>
+                  <li>Hierarquia visual e acessibilidade</li>
+                  <li>Design tokens e sistemas de design</li>
+                </ul>
+              </template>
+              <template x-if="i === 4">
+                <ul class="list-disc list-inside">
+                  <li>Ferramentas de prototipagem (Figma, Adobe XD)</li>
+                  <li>Testes A/B e entrevistas com usuários</li>
+                  <li>Análise de feedback e melhorias</li>
+                </ul>
+              </template>
+              <template x-if="i === 5">
+                <ul class="list-disc list-inside">
+                  <li>Como montar um portfólio</li>
+                  <li>Entrevistas e desafios de UX</li>
+                  <li>Freelancer ou contratado?</li>
+                  <li>Certificações e comunidades</li>
+                </ul>
+              </template>
+              <template x-if="i === 6">
+                <p>Este exame reúne perguntas de múltipla escolha e desafios práticos para avaliar sua compreensão dos conceitos aprendidos.</p>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Lado direito: tutorial dinâmico -->
+    <div x-data="{
+      modulos: [
+        { titulo: 'Tutorial de navegação do curso', descricao: 'Explore como navegar pela plataforma e aproveitar os recursos do curso.' },
+        { titulo: 'Fundamentos de UI e UX Design', descricao: 'Aprenda os princípios básicos que fundamentam o design de interfaces e experiências.' },
+        { titulo: 'Psicologia do Usuário', descricao: 'Entenda como o comportamento humano influencia decisões no design digital.' },
+        { titulo: 'Design Intuitivo', descricao: 'Descubra técnicas para criar interfaces claras, eficientes e acessíveis.' },
+        { titulo: 'Prototipagem e Testes', descricao: 'Crie protótipos e conduza testes para validar ideias com usuários reais.' },
+        { titulo: 'Carreira em UI/UX', descricao: 'Veja como montar portfólio, preparar entrevistas e crescer na área.' },
+        { titulo: 'Exame Final', descricao: 'Avalie seu conhecimento com questões teóricas e desafios práticos.' }
+      ],
+      openModulo: null
+    }" x-ref="info">
+
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1614001361954-b47e5ac57470" alt="Tutorial" class="rounded-lg shadow">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold" x-text="openModulo !== null ? modulos[openModulo].titulo : 'Tutorial de navegação do curso'"></h3>
+          <p class="mt-2 text-gray-200">Clique em um módulo para ver mais detalhes ▼</p>
+        </div>
+      </div>
+
+      <div class="mt-6 text-gray-300 text-sm leading-relaxed">
+        <p x-text="openModulo !== null ? modulos[openModulo].descricao : 'Bem-vindo ao curso Introdução ao Design de Interfaces (UI). Este curso é composto por cinco módulos e um exame final, com duração estimada de seis horas. Seu progresso é salvo automaticamente. Explore no seu ritmo e volte quando quiser.'"></p>
+      </div>
+
+      <!-- Botão final destacado -->
+      <div class="mt-6">
+        <a href="/prova"
+           class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white text-base font-semibold px-6 py-3 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12h6m-6 4h6m-9 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          Fazer Prova Final
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

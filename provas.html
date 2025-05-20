@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prova Final - Curso UI/UX</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <header class="bg-teal-700 text-white p-4 text-xl font-bold">Prova Final – UI/UX Design</header>
+
+  <main class="max-w-4xl mx-auto p-6" x-data="provaFinal()">
+
+    <!-- Instruções -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold text-teal-400">Instruções</h2>
+      <p class="text-gray-300 mt-2">Esta prova contém 3 questões de múltipla escolha. Selecione a resposta correta para cada uma. Ao final, clique em "Submeter Prova".</p>
+    </section>
+
+    <!-- Perguntas -->
+    <section class="space-y-8">
+      <template x-for="(pergunta, i) in perguntas" :key="i">
+        <div class="bg-gray-800 p-4 rounded shadow">
+          <p class="font-medium text-white mb-4" x-text="pergunta.enunciado"></p>
+          <template x-for="(opcao, j) in pergunta.opcoes" :key="j">
+            <label class="block mb-2">
+              <input type="radio"
+                     class="mr-2 text-teal-500 focus:ring-teal-400"
+                     :name="'pergunta_' + i"
+                     :value="opcao"
+                     x-model="respostas[i]">
+              <span x-text="opcao" class="text-gray-200"></span>
+            </label>
+          </template>
+        </div>
+      </template>
+    </section>
+
+    <!-- Botão -->
+    <div class="mt-10">
+      <button @click="avaliar"
+              class="w-full md:w-auto px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105">
+        Submeter Prova
+      </button>
+    </div>
+
+    <!-- Resultado -->
+    <div x-show="resultado !== null"
+         x-transition
+         class="mt-8 text-center text-xl font-bold"
+         :class="resultado ? 'text-green-400' : 'text-red-400'">
+      <template x-if="resultado">
+        <p>✅ Você passou na prova! Parabéns!</p>
+      </template>
+      <template x-if="!resultado">
+        <p>❌ Você não passou. Tente novamente!</p>
+      </template>
+    </div>
+
+  </main>
+
+  <script>
+    function provaFinal() {
+      return {
+        respostas: {},
+        resultado: null,
+        perguntas: [
+          {
+            enunciado: '1. O que melhor define a diferença entre UI e UX?',
+            opcoes: [
+              'UI é sobre a aparência, UX sobre a experiência.',
+              'UI lida com usuários, UX com interfaces.',
+              'UX é apenas para desenvolvedores.',
+              'UI e UX são exatamente a mesma coisa.'
+            ],
+            correta: 'UI é sobre a aparência, UX sobre a experiência.'
+          },
+          {
+            enunciado: '2. Qual das heurísticas de Nielsen fala sobre consistência?',
+            opcoes: [
+              'Visibilidade do status do sistema',
+              'Consistência e padrões',
+              'Controle e liberdade do usuário',
+              'Ajuda e documentação'
+            ],
+            correta: 'Consistência e padrões'
+          },
+          {
+            enunciado: '3. O que é um wireframe?',
+            opcoes: [
+              'Versão final do layout',
+              'Protótipo funcional com código',
+              'Esboço estrutural da interface',
+              'Documento de requisitos'
+            ],
+            correta: 'Esboço estrutural da interface'
+          }
+        ],
+        avaliar() {
+          let acertos = 0;
+          this.perguntas.forEach((p, i) => {
+            if (this.respostas[i] === p.correta) acertos++;
+          });
+          this.resultado = acertos >= 2; // Aprovado se 2 ou mais acertos
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

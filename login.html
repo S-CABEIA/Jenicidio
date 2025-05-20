@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ubuntu - Login / Cadastro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-cover bg-center bg-no-repeat" style="background-image: url('young-woman-with-afro-haircut-wearing-sweater.jpg');">
+  <div class="min-h-screen flex items-center justify-center backdrop-blur-sm bg-black/30">
+    <div x-data="{ showLogin: true }" class="w-full max-w-md bg-gray-800 bg-opacity-70 text-white rounded-2xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-center mb-6">UBUNTU</h2>
+
+      <!-- Login -->
+      <div x-show="showLogin" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+        <form>
+          <div class="mb-4">
+            <label for="email" class="block text-sm mb-1">Email</label>
+            <input type="email" id="email" class="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Digite seu email">
+          </div>
+          <div class="mb-6">
+            <label for="senha" class="block text-sm mb-1">Senha</label>
+            <input type="password" id="senha" class="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Digite sua senha">
+          </div>
+          <button type="submit" class="w-full bg-white text-gray-900 py-2 rounded font-semibold hover:bg-gray-100 transition">Entrar</button>
+        </form>
+        <p class="mt-4 text-sm text-center">
+          Não tem uma conta?
+          <button @click="showLogin = false" class="text-blue-400 hover:underline">Cadastre-se</button>
+        </p>
+      </div>
+
+      <!-- Cadastro -->
+      <div x-show="!showLogin" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+        <form>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <input type="text" placeholder="Nome" class="px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none" />
+            <input type="text" placeholder="Sobrenome" class="px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none" />
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <select class="px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none">
+              <option selected disabled>Dia</option>
+              <!-- Dias -->
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const diaSelect = document.querySelectorAll("select")[0];
+                  for (let i = 1; i <= 31; i++) {
+                    const opt = document.createElement("option");
+                    opt.value = i;
+                    opt.text = i;
+                    diaSelect.appendChild(opt);
+                  }
+                });
+              </script>
+            </select>
+            <select class="px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none">
+              <option selected disabled>Mês</option>
+              <option>Janeiro</option>
+              <option>Fevereiro</option>
+              <option>Março</option>
+              <option>Abril</option>
+              <option>Maio</option>
+              <option>Junho</option>
+              <option>Julho</option>
+              <option>Agosto</option>
+              <option>Setembro</option>
+              <option>Outubro</option>
+              <option>Novembro</option>
+              <option>Dezembro</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <p class="mb-2">Gênero</p>
+            <div class="flex items-center space-x-4">
+              <label class="inline-flex items-center">
+                <input type="radio" name="genero" value="feminino" class="form-radio text-blue-400">
+                <span class="ml-2">Feminino</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="genero" value="masculino" class="form-radio text-blue-400">
+                <span class="ml-2">Masculino</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="genero" value="personalizado" class="form-radio text-blue-400">
+                <span class="ml-2">Personalizado</span>
+              </label>
+            </div>
+          </div>
+          <div class="mb-4">
+            <input type="email" placeholder="Email" class="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none" />
+          </div>
+          <div class="mb-6">
+            <input type="password" placeholder="Senha" class="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none" />
+          </div>
+          <button type="submit" class="w-full bg-white text-gray-900 py-2 rounded font-semibold hover:bg-gray-100 transition">Criar conta</button>
+        </form>
+        <p class="mt-4 text-sm text-center">
+          Já tem uma conta?
+          <button @click="showLogin = true" class="text-blue-400 hover:underline">Entrar</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

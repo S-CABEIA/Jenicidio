@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz UI/UX</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white font-sans" x-data="quizApp()">
+  <!-- Topbar -->
+  <header class="bg-gray-600 text-white flex justify-between items-center px-6 py-3">
+    <h1 class="font-bold text-lg">Quiz UI/UX</h1>
+    <div class="flex items-center">
+      <span class="mr-2">Sião Cabela</span>
+      <div class="bg-white text-gray-600 rounded-full w-6 h-6 flex items-center justify-center">👤</div>
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="max-w-4xl mx-auto px-4 py-6" x-show="step <= questions.length">
+    <h2 class="text-lg font-semibold mb-2">Avaliação</h2>
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-1">Progresso</label>
+      <div class="flex items-center space-x-2">
+        <template x-for="(q, index) in questions" :key="index">
+          <button class="w-6 h-6 rounded-full text-xs flex items-center justify-center" 
+                  :class="{'bg-green-800 text-white': index < step, 'bg-gray-300': index >= step }">
+            <span x-text="index + 1"></span>
+          </button>
+        </template>
+      </div>
+      <div class="h-1 bg-gray-200 mt-2 rounded">
+        <div class="bg-green-800 h-1 rounded" :style="`width: ${(step/questions.length)*100}%`"></div>
+      </div>
+    </div>
+
+    <div class="bg-green-900 text-white p-4 rounded-md">
+      <h3 class="mb-4" x-text="questions[step - 1].question"></h3>
+      <template x-for="(option, idx) in questions[step - 1].options" :key="idx">
+        <button @click="selectAnswer(idx)"
+                class="block w-full mb-2 px-4 py-2 rounded"
+                :class="{
+                  'bg-white text-green-900 hover:bg-green-100': !answered,
+                  'bg-green-600 text-white': answered && idx === questions[step - 1].answer,
+                  'bg-red-500 text-white': answered && idx === selectedAnswers[step - 1] && idx !== questions[step - 1].answer
+                }"
+                x-text="option"></button>
+      </template>
+    </div>
+  </main>
+
+  <!-- Envio -->
+  <section class="max-w-xl mx-auto text-center py-10" x-show="step > questions.length && !submitted">
+    <div class="mb-6">
+      <div class="text-green-900 text-5xl">✔️</div>
+    </div>
+    <button @click="submitQuiz()" class="px-6 py-2 bg-green-100 text-green-900 rounded hover:bg-green-200">
+      Enviar
+    </button>
+  </section>
+
+  <!-- Resultado -->
+  <section class="max-w-xl mx-auto text-center py-10" x-show="submitted">
+    <div class="bg-green-900 text-white p-6 rounded-md">
+      <div class="text-3xl font-bold mb-2" x-text="score + '%' "></div>
+      <p class="mb-4" x-text="score >= 60 ? 'Parabéns, você passou!' : 'Tente novamente!' "></p>
+      <div class="text-2xl">👍</div>
+    </div>
+  </section>
+
+  <script>
+    function quizApp() {
+      return {
+        step: 1,
+        submitted: false,
+        score: 0,
+        selectedAnswers: [],
+        answered: false,
+        questions: [
+          {
+            question: 'O que é UI Design?',
+            options: [
+              'Interface entre usuário e hardware',
+              'Design de Interação',
+              'Design visual e disposição de elementos na tela',
+              'Análise de dados do usuário'
+            ],
+            answer: 2
+          },
+          {
+            question: 'Qual destes é um princípio de UX Design?',
+            options: [
+              'Minimalismo',
+              'Saturação',
+              'Ruído visual',
+              'Complexidade'
+            ],
+            answer: 0
+          },
+          {
+            question: 'Qual ferramenta é mais usada para prototipagem de UI?',
+            options: [
+              'Excel',
+              'Figma',
+              'Photoshop',
+              'Word'
+            ],
+            answer: 1
+          },
+          {
+            question: 'Em UX, o que é "persona"?',
+            options: [
+              'Interface gráfica',
+              'Layout de página',
+              'Usuário fictício baseado em dados reais',
+              'Paleta de cores'
+            ],
+            answer: 2
+          },
+          {
+            question: 'O que significa acessibilidade em UI/UX?',
+            options: [
+              'Fácil de decorar',
+              'Disponível apenas em desktop',
+              'Utilizável por pessoas com diferentes capacidades',
+              'Design responsivo'
+            ],
+            answer: 2
+          }
+        ],
+        selectAnswer(index) {
+          this.selectedAnswers[this.step - 1] = index;
+          this.answered = true;
+          setTimeout(() => {
+            this.answered = false;
+            this.step++;
+          }, 1000);
+        },
+        submitQuiz() {
+          let correct = 0;
+          this.questions.forEach((q, i) => {
+            if (q.answer === this.selectedAnswers[i]) correct++;
+          });
+          this.score = Math.round((correct / this.questions.length) * 100);
+          this.submitted = true;
+        }
+      };
+    }
+  </script>
+</body>
+</html>

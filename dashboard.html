@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ubuntu - Painel do Usuário</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans" x-data="{ aba: 'cursos' }">
+
+  <!-- Header -->
+  <header class="bg-teal-700 text-white px-6 py-4 flex justify-between items-center">
+    <div class="font-bold text-xl">UBUNTU</div>
+    <nav class="space-x-4">
+      <button class="hover:underline" @click="aba = 'cursos'">Cursos</button>
+      <button class="hover:underline" @click="aba = 'aprendizado'">Meu aprendizado</button>
+      <button class="hover:underline" @click="aba = 'quizzes'">Quizzes</button>
+    </nav>
+    <div class="relative" x-data="{ open: false }">
+      <button @click="open = !open" class="flex items-center space-x-2">
+        <span class="bg-white text-teal-700 rounded-full px-2 py-1">Seu Cadastro</span>
+      </button>
+      <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-gray-800 text-white shadow-md rounded">
+        <a href="#" class="block px-4 py-2 hover:bg-gray-700">Perfil</a>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-700">Certificados</a>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-700">Idioma: Português</a>
+        <a href="#" class="block px-4 py-2 text-red-400 hover:bg-gray-700">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="p-6">
+    <!-- Cursos -->
+    <section x-show="aba === 'cursos'" class="grid md:grid-cols-3 gap-6">
+      <div class="bg-gray-800 rounded shadow p-4">
+        <img src="high-angle-designer-holding-smartphone.jpg" class="mb-2 rounded" />
+        <h3 class="font-bold text-lg">UI e UX</h3>
+        <p class="text-sm text-gray-300"Curso prático de UI e UX para criar interfaces bonitas e fáceis de usar. Aprenda a desenhar apps e sites centrados no usuário, com foco em usabilidade, protótipos e testes. .</p>
+        <span class="text-xs bg-green-700 text-white px-2 py-1 rounded">Grátis</span>
+      </div>
+      <!-- + outros cards -->
+    </section>
+<!-- Meu aprendizado -->
+<section x-show="aba === 'aprendizado'" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Curso UI e UX -->
+  <div class="bg-gray-800 rounded shadow p-4">
+    <img src="high-angle-designer-holding-smartphone.jpg" alt="Curso UI e UX"
+         class="mb-2 rounded w-full h-40 object-cover" />
+    <h3 class="font-bold text-lg text-white">UI e UX (em andamento)</h3>
+    <p class="text-sm text-gray-300">
+      Curso prático de UI e UX para criar interfaces bonitas e fáceis de usar. Aprenda a desenhar apps e sites centrados no usuário, com foco em usabilidade, protótipos e testes.
+    </p>
+    <div class="flex justify-between items-center mt-3">
+      <span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">Em andamento</span>
+      <span class="text-xs text-gray-400">8h • Grátis</span>
+    </div>
+  </div>
+
+  <!-- Curso Matemática -->
+  <div class="bg-gray-800 rounded shadow p-4">
+    <img src="scientists-wear-glasses-fold-their-arms-see-formula-laboratory.jpg" alt="Curso de Matemática"
+         class="mb-2 rounded w-full h-40 object-cover" />
+    <h3 class="font-bold text-lg text-white">Matemática Básica</h3>
+    <p class="text-sm text-gray-300">
+      Curso de Matemática com foco em raciocínio lógico, resolução de problemas e fundamentos como álgebra, geometria e estatística. Ideal para reforço escolar ou base para cursos técnicos.
+    </p>
+    <div class="flex justify-between items-center mt-3">
+      <span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">Em andamento</span>
+      <span class="text-xs text-gray-400">14h • Grátis</span>
+    </div>
+  </div>
+
+  <!-- Curso JavaScript -->
+  <div class="bg-gray-800 rounded shadow p-4">
+    <img src="jsheader.png" alt="Curso JavaScript"
+         class="mb-2 rounded w-full h-40 object-cover" />
+    <h3 class="font-bold text-lg text-white">JavaScript para Iniciantes</h3>
+    <p class="text-sm text-gray-300">
+      Curso de JavaScript para iniciantes. Aprenda lógica de programação, manipulação de elementos HTML, interatividade e fundamentos para criar sites e aplicações web dinâmicas.
+    </p>
+    <div class="flex justify-between items-center mt-3">
+      <span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">Em andamento</span>
+      <span class="text-xs text-gray-400">8h • Grátis</span>
+    </div>
+  </div>
+</section>
+
+    </section>
+<!-- Quizzes -->
+<section x-show="aba === 'quizzes'" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <a href="quiz.html" class="block bg-gray-800 rounded shadow p-4 hover:shadow-lg transition duration-200">
+      <img src="Capturar.PNG" alt="Quiz sobre UI e UX" 
+           class="mb-2 rounded w-full h-40 object-cover" />
+      <h3 class="font-bold text-lg text-white">Quiz sobre UI e UX</h3>
+      <p class="text-sm text-gray-300 mt-1">
+        Teste seus conhecimentos em design de interfaces e usabilidade.
+      </p>
+    </a>
+
+  <div class="bg-gray-800 rounded shadow p-4">
+    <img src="Capturar.PNG" alt="Quiz Matemática" 
+         class="mb-2 rounded w-full h-40 object-cover" />
+    <h3 class="font-bold text-lg text-white">Quiz de Matemática</h3>
+    <p class="text-sm text-gray-300 mt-1">
+      Avalie seu raciocínio lógico e fundamentos matemáticos.
+    </p>
+  </div>
+
+  <div class="bg-gray-800 rounded shadow p-4">
+    <img src="Capturar.PNG" alt="Quiz JavaScript" 
+         class="mb-2 rounded w-full h-40 object-cover" />
+    <h3 class="font-bold text-lg text-white">Quiz de JavaScript</h3>
+    <p class="text-sm text-gray-300 mt-1">
+      Coloque à prova seus conhecimentos em programação web.
+    </p>
+  </div>
+</section>
+
+  </main>
+
+</body>
+</html>
